@@ -1,0 +1,35 @@
+<!-- Your HTML file -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voice Command App</title>
+</head>
+<body>
+    <button onclick="listenAndSay('hello')">Say Hello</button>
+    <button onclick="listenAndSay('sona')">Ask Sona</button>
+
+    <script>
+        function listenAndSay(command) {
+            // Make a POST request to the Flask server
+            fetch('/api/listen_and_say', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ command: command }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Process the response from the server
+                console.log(data.response);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>
